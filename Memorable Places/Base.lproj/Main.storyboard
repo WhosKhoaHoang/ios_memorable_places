@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aog-mq-s6O">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="lBb-b9-0Dp">
+            <objects>
+                <tableViewController id="ehV-9W-HWm" customClass="TableViewController" customModule="Memorable_Places" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="4wR-ss-bhD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="NdL-I2-bbu">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NdL-I2-bbu" id="ufk-fV-0qD">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ehV-9W-HWm" id="Wch-ld-3Qa"/>
+                            <outlet property="delegate" destination="ehV-9W-HWm" id="Imb-fm-VGX"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="FkK-L8-Vhz">
+                        <barButtonItem key="rightBarButtonItem" title="Show Map" id="TvS-xi-BwJ">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" id="u4K-4z-mYu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fOl-L5-KT3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="30" y="396"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6yq-aY-S74">
+            <objects>
+                <navigationController id="Aog-mq-s6O" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6gY-vQ-zAb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ehV-9W-HWm" kind="relationship" relationship="rootViewController" id="VEQ-vd-ddr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qkW-hf-ugz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="30" y="-318"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="Map View Controller" id="BYZ-38-t0r" customClass="ViewController" customModule="Memorable_Places" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hcM-7C-abw">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hcM-7C-abw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="C21-Hx-uC0"/>
+                            <constraint firstAttribute="trailing" secondItem="hcM-7C-abw" secondAttribute="trailing" id="J0t-Dz-Kis"/>
+                            <constraint firstItem="hcM-7C-abw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZnK-EO-Wf1"/>
+                            <constraint firstItem="hcM-7C-abw" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="pcV-lv-IoV"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="map" destination="hcM-7C-abw" id="qbH-YU-bSD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="451" y="396"/>
+        </scene>
+    </scenes>
+</document>

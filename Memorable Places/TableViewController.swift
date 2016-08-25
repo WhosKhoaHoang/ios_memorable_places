@@ -12,9 +12,6 @@ class TableViewController: UITableViewController {
     //This will get called only once when the app actually starts
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //locations.append(["name": "Khoa Hoang", "lat": "1", "lon": "2"]); //FOR TESTING
-        print("boom!");
     }
     
     
@@ -24,27 +21,20 @@ class TableViewController: UITableViewController {
     }
     
     
-    // MARK: - Table view data source
     //Gives the number of sections in a Table View
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     
     //Gives the number of rows in a section of a Table View
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return locations.count;
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        
-        //print("YOU DO NOT EXIST");
-        //print(locations[indexPath.row]["name"]);
-        
         // Configure the cell...
         if locations[indexPath.row]["name"] != nil {
             cell.textLabel?.text = locations[indexPath.row]["name"];
@@ -59,7 +49,6 @@ class TableViewController: UITableViewController {
     //This function gives us the cell that was tapped
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         locIndex = indexPath.row;
-        print(locIndex); //FOR TESTING
         return indexPath;
     }
     
@@ -72,11 +61,9 @@ class TableViewController: UITableViewController {
     
     //This function is called when any segue is about to take place from the Root View Controller to the Map View Controller
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //print(segue.identifier!);
         if (segue.identifier! == "showMap") {
             locIndex = -1;
         }
-        print(locIndex);
     }
     
 }

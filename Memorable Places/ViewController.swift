@@ -2,7 +2,8 @@ import UIKit
 import CoreLocation;
 import MapKit;
 
-//TODO: Deal with situation when there's nothing in the locations array.
+//TODO: Center the map when the user clicks on a location in the Root View Controller...DONE
+//TODO: Deal with situation when there's nothing in the locations array...DONE
 //TODO: Persist data
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
@@ -10,40 +11,38 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var map: MKMapView!
     var locationManager:CLLocationManager!
     
-    //viewDidLoad() fires any time a segue is made to this View Controller
+    //viewDidLoad() fires any time a segue is made to this Map View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        //print("LOADED");
         
         //Initialize location manager
         locationManager = CLLocationManager();
         locationManager.delegate = self;
         locationManager.requestAlwaysAuthorization();
-        locationManager.startUpdatingLocation();
+ 
+        //. If there are actually places, then set the map region to the active place. The
+        //  active place is the place that the user tapped on in the locations array. We can
+        //  represent the active place by an index into the locations array.
         
-        //If there are actually places, then set the map region to the active place. The
-        //active place is the place that the user tapped on in the locations array. We can
-        //represent the active place by an index into the locations array.
+        //. If the user tapped Show Map (which at that point, the locations array could be empty), 
+        //  center the map on the user's current location. Else, let the map region center around 
+        //  the location that the user tapped on in the root view controller
         
-        //. If the array is empty, then just let the map region be a complete view of the US. 
-        // Else, let the map region center around the location that the user tapped on in the 
-        // root view controller
-        
-        if (locations.count-1 > 0) {
-            //If there are actual locations, then center the map onto the appropriate region...
+        if (locIndex != -1) {
+            let location:CLLocation = CLLocation(latitude: Double(locations[locIndex]["lat"]!)!,
+                                                 longitude: Double(locations[locIndex]["lon"]!)!);
+            //print("In viewDidLoad before centerMap");
+            centerMap(location);
         }
-        else {
-            //locIndex must have a non-negative value. Question: Where is locIndex set?
-            print("EMPTINESS!");
+        else { //If locIndex is -1, user clicked on Show Map. Update map during this phase.
+            locationManager.startUpdatingLocation(); //Seems that action() is called upon this line being executed
         }
-        
         
         //Initialize gesture recognizer
         let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.action));
         uilpgr.minimumPressDuration = 2;
         map.addGestureRecognizer(uilpgr);
-        
-        //print("LOADED");
     }
     
     
@@ -89,17 +88,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 annotation.title = placeName;
                 self.map.addAnnotation(annotation);
             }
-            
-            //print(locations); //FOR TESTING
         }
         //Note that we don't wany anything to happen for a "touch up"
     }
     
     
-    //Allow the map to update as the user's physical location updates
+    //--- Why is this function being called even when the user's location isn't being updated? I think because
+    //    this get called when the locationManager.startUpdatingLocation() statement is executed ---
+    //Allow the map to update and center on the user's physical location as it updates
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //do something, e.g., center the map to the user's location as its updating
-        let userLocation:CLLocation = locations[0];
+        //print("In locationManager before centerMap");
+        centerMap(locations[0]);
+    }
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func centerMap(location: CLLocation) {
+        let userLocation:CLLocation = location;
         let latitude = userLocation.coordinate.latitude;
         let longitude = userLocation.coordinate.longitude;
         
@@ -110,14 +121,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude);
         let region:MKCoordinateRegion = MKCoordinateRegionMake(location, span);
         self.map.setRegion(region, animated: true);
+        
     }
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 

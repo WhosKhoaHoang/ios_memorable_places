@@ -22,7 +22,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="F2S-qp-gqJ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="showLocation" id="F2S-qp-gqJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -98,6 +98,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="u4K-4z-mYu"/>
+        <segue reference="F2S-qp-gqJ"/>
     </inferredMetricsTieBreakers>
 </document>

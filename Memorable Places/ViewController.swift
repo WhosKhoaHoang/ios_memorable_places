@@ -1,18 +1,6 @@
-//
-//  ViewController.swift
-//  Map Test
-//
-//  Created by Khoa Hoang on 8/23/16.
-//  Copyright © 2016 KhoaHoang. All rights reserved.
-//
-
 import UIKit
 import CoreLocation;
 import MapKit;
-
-//MAIN TASK ACCOMPLISHED:
-//- Can make annotations on map and append location info to locations array, which then updates
-//   the Root View Controller
 
 //TODO: Deal with situation when there's nothing in the locations array.
 //TODO: Persist data
@@ -22,7 +10,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var map: MKMapView!
     var locationManager:CLLocationManager!
     
-    
+    //viewDidLoad() fires any time a segue is made to this View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,14 +21,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization();
         locationManager.startUpdatingLocation();
         
-        //If there are actually places, then set the map to the active place. The
-        //active place is the place that the user tapped on in the list. We can
+        //If there are actually places, then set the map region to the active place. The
+        //active place is the place that the user tapped on in the locations array. We can
         //represent the active place by an index into the locations array.
+        
+        //. If the array is empty, then just let the map region be a complete view of the US. 
+        // Else, let the map region center around the location that the user tapped on in the 
+        // root view controller
+        
+        if (locations.count-1 > 0) {
+            //If there are actual locations, then center the map onto the appropriate region...
+        }
+        else {
+            //locIndex must have a non-negative value. Question: Where is locIndex set?
+            print("EMPTINESS!");
+        }
+        
         
         //Initialize gesture recognizer
         let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.action));
         uilpgr.minimumPressDuration = 2;
         map.addGestureRecognizer(uilpgr);
+        
+        //print("LOADED");
     }
     
     
@@ -66,11 +69,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     var subThoroughfare:String = "";
                     var thoroughfare:String = "";
                     
-                    if p.subThoroughfare != nil {
+                    if (p.subThoroughfare != nil) {
                         subThoroughfare = p.subThoroughfare!;
                     }
                     
-                    if p.thoroughfare != nil {
+                    if (p.thoroughfare != nil) {
                         thoroughfare = p.thoroughfare!;
                     }
                     
@@ -87,7 +90,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.map.addAnnotation(annotation);
             }
             
-            print(locations); //FOR TESTING
+            //print(locations); //FOR TESTING
         }
         //Note that we don't wany anything to happen for a "touch up"
     }
